@@ -11,7 +11,7 @@ $sql = "CREATE TABLE users (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(60)
+    email VARCHAR(60) UNIQUE
 )";
   $conn->exec($sql);
   echo "<br /> Table users created successfully.<br />";

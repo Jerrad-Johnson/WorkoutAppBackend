@@ -20,7 +20,7 @@ $hash = password_hash($placeholder['password'], PASSWORD_DEFAULT);
 try {
     $sth = $conn->prepare("INSERT INTO users (username, password, email) VALUES(:user, :pass, :email)");
     $sth->bindParam(':user', $placeholder['username']);
-    $sth->bindParam(':pass', $placeholder['password']);
+    $sth->bindParam(':pass', $hash);
     $sth->bindParam(':email', $placeholder['email']);
     $sth->execute();
     echo $sth->fetch();
