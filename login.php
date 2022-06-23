@@ -16,7 +16,7 @@ $placeholder = array(
     "username" => "elseif",
 );
 
-if (checkAuth()){
+if (!checkAuth()){
     try {
         $stmt = $conn->prepare("SELECT password, username FROM users WHERE username = :username");
         $stmt->bindParam(':username', $placeholder['username']);
@@ -25,6 +25,7 @@ if (checkAuth()){
 
         if (password_verify($placeholder['password'], $results['password'])){
             $_SESSION['authenticated'] = true;
+            $_SESSION['username'] = $placeholder['username'];
             echo "Correct password.";
         } else {
             echo "Wrong password.";
