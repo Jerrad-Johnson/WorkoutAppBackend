@@ -8,26 +8,33 @@ include "./connect.php";
 <br />
 
 <?php
+session_start();
+include "./supplemental/checkAuthentication.php";
 
 $placeholder = array(
-    "password" => "abc2",
+    "password" => "abc",
     "username" => "elseif",
 );
 
-try {
-    $stmt = $conn->prepare("SELECT password, username FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $placeholder['username']);
-    $stmt->execute();
-    $results = $stmt->fetch();
+if (checkAuth()){
+    try {
+        $stmt = $conn->prepare("SELECT password, username FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $placeholder['username']);
+        $stmt->execute();
+        $results = $stmt->fetch();
 
-    if (password_verify($placeholder['password'], $results['password'])){
-        echo "success";
-    } else {
-        echo "wrong password";
+        if (password_verify($placeholder['password'], $results['password'])){
+            $_SESSION['authenticated'] = true;
+            echo "Correct password.";
+        } else {
+            echo "Wrong password.";
+        }
+
+    } catch (PDOException $e){
+        echo $e->getMessage();
     }
-
-} catch (PDOException $e){
-    echo $e->getMessage();
+} else {
+    echo "Already logged in.";
 }
 
 ?>
