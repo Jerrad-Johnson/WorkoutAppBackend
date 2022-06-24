@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-
+session_start();
 /*$reply = array("Stuff", "Stuff2");
 $reply = json_encode($reply);*/
 //echo $post = json_encode(file_get_contents('php://input'));
@@ -12,4 +12,6 @@ $reply = json_encode($reply);*/
 }*/
 
 echo "php version " . phpversion();
+
+echo " " . $_SESSION["color"];
 ?>
