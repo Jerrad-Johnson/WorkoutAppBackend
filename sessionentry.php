@@ -7,7 +7,9 @@ include "./connect.php";
 //include "./supplemental/checkAuthentication.php";
 include "./utilities/getUID.php";
 
-$placeholder = array(
+$entries = json_encode(file_get_contents('php://input'));
+
+/*$placeholder = array(
     array(
         "date" => "2022-02-02",
         "title" => "Upper Body",
@@ -22,13 +24,13 @@ $placeholder = array(
         "weightLifted" => array(30, 30, 30),
         "reps" => array(5, 5, 5,)
     )
-);
+);*/
 
 
 $uid = getUID();
 
 if($uid !== false){
-    foreach ($placeholder as $entry){
+    foreach ($entries as $entry){
         $repsAsString = implode(",", $entry['reps']);
         $weightLiftedAsString = implode(",", $entry['weightLifted']);
                 try {

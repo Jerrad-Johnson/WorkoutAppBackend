@@ -1,3 +1,4 @@
-Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Origin "http://localhost:3000"
 Header add Access-Control-Allow-Methods: "GET, POST, OPTIONS, DELETE, PUT"
-Header add Access-Control-Allow-Headers: "Content-Type" 
+Header add Access-Control-Allow-Headers: "Content-Type"
+Header add Access-Control-Allow-Credentials: "true"

@@ -12,7 +12,7 @@ $sql = "CREATE TABLE users (
     username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(60) UNIQUE
-)";
+    )";
   $conn->exec($sql);
   echo "<br /> Table users created successfully.<br />";
 } catch(PDOException $e) {
@@ -25,7 +25,7 @@ try {
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(8) UNSIGNED NOT NULL,
     exercise VARCHAR(30) NOT NULL
-)";
+    )";
     $conn->exec($sql);
     echo "<br /> Table exercises created successfully.<br />";
 } catch(PDOException $e) {
@@ -43,7 +43,7 @@ try {
     exercise VARCHAR(40) NOT NULL,
     weight_lifted VARCHAR(110) NOT NULL,
     reps VARCHAR(70) NOT NULL
-)";
+    )";
     $conn->exec($sql);
     echo "<br /> Table sessions created successfully.<br />";
 } catch(PDOException $e) {
@@ -58,7 +58,7 @@ try {
     body_weight INT(4) UNSIGNED,
     user_defined_measurement DECIMAL(7,2) UNSIGNED,
     user_defined_stat VARCHAR(30)
-)";
+    )";
     $conn->exec($sql);
     echo "<br /> Table bodystats created successfully.<br />";
 } catch(PDOException $e) {

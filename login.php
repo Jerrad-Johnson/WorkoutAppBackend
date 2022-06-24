@@ -2,30 +2,30 @@
 <body style="color: #999">
 
 <?php
-include "./connect.php";
-?>
-
-<br />
-
-<?php
 session_start();
+include "./connect.php";
 include "./utilities/checkAuthentication.php";
 
-$placeholder = array(
+echo session_id();
+$entry = json_decode(file_get_contents('php://input'));
+
+var_dump($entry);
+
+/*$entry = array(
     "password" => "abc",
     "username" => "elseif",
-);
+);*/
 
 if (!checkAuth()){
     try {
         $stmt = $conn->prepare("SELECT password, username FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $placeholder['username']);
+        $stmt->bindParam(':username', $entry->username);
         $stmt->execute();
         $results = $stmt->fetch();
 
-        if (password_verify($placeholder['password'], $results['password'])){
+        if (password_verify($entry->password, $results['password'])){
             $_SESSION['authenticated'] = true;
-            $_SESSION['username'] = $placeholder['username'];
+            $_SESSION['username'] = $entry->username;
             echo "Correct password.";
         } else {
             echo "Wrong password.";
