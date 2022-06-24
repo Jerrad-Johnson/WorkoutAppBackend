@@ -39,13 +39,13 @@ try {
     user_id INT(8) UNSIGNED NOT NULL,
     session_date DATE NOT NULL,
     session_title VARCHAR(40),
-    /*session_number INT(5) UNSIGNED NOT NULL,*/
+    /*session_number INT(5) UNSIGNED NOT NULL, TODO Remove this column*/
     exercise VARCHAR(40) NOT NULL,
     weight_lifted VARCHAR(110) NOT NULL,
     reps VARCHAR(70) NOT NULL
 )";
     $conn->exec($sql);
-    echo "<br /> Table exercises created successfully.<br />";
+    echo "<br /> Table sessions created successfully.<br />";
 } catch(PDOException $e) {
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
@@ -61,7 +61,7 @@ try {
     user_defined_stat VARCHAR(30)
 )";
     $conn->exec($sql);
-    echo "<br /> Table exercises created successfully.<br />";
+    echo "<br /> Table bodystats created successfully.<br />";
 } catch(PDOException $e) {
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
