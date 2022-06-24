@@ -4,7 +4,8 @@
 <?php
 session_start();
 include "./connect.php";
-include "./supplemental/checkAuthentication.php";
+//include "./supplemental/checkAuthentication.php";
+include "./utilities/getUID.php";
 
 $placeholder = array(
     array(
@@ -24,29 +25,16 @@ $placeholder = array(
 );
 
 
-if (checkAuth() && $_SESSION['username']){
-    try {
-        $stmt = $conn->prepare("SELECT id FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $_SESSION['username']);
-        $stmt->execute();
-        $idResults = $stmt->fetch();
-        //echo $idResults['id'];
-    } catch (PDOException $e){
-        echo $e->getMessage();
-    }
-} else {
-    echo "Not logged in.";
-}
+$uid = getUID();
 
-
-if($idResults['id']){
+if($uid !== false){
     foreach ($placeholder as $entry){
         $repsAsString = implode(",", $entry['reps']);
         $weightLiftedAsString = implode(",", $entry['weightLifted']);
                 try {
             $stmt = $conn->prepare("INSERT INTO sessions (user_id, session_date, session_title, exercise, weight_lifted, reps) 
                 VALUES (:user, :date, :title, :exercise, :weight_lifted, :reps)");
-            $stmt->bindParam(':user', $idResults['id']);
+            $stmt->bindParam(':user', $uid);
             $stmt->bindParam(':date', $entry['date']);
             $stmt->bindParam(':title', $entry['title']);
             $stmt->bindParam(':exercise', $entry['exercise']);

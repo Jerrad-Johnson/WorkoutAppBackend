@@ -9,7 +9,7 @@ include "./connect.php";
 
 <?php
 session_start();
-include "./supplemental/checkAuthentication.php";
+include "./utilities/checkAuthentication.php";
 
 $placeholder = array(
     "password" => "abc",
