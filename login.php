@@ -6,15 +6,7 @@ session_start();
 include "./connect.php";
 include "./utilities/checkAuthentication.php";
 
-echo session_id();
 $entry = json_decode(file_get_contents('php://input'));
-
-var_dump($entry);
-
-/*$entry = array(
-    "password" => "abc",
-    "username" => "elseif",
-);*/
 
 if (!checkAuth()){
     try {
