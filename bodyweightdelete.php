@@ -8,7 +8,7 @@ include "./utilities/getUID.php";
 
 $placeholder = array(
     "date" => "2022-02-02",
-    "user_stat" => "Chest"
+    "bodyweight" => 120
 );
 
 $uid = getUID();
@@ -16,10 +16,10 @@ $uid = getUID();
 if ($uid !== false) {
     try {
         $stmt = $conn->prepare("DELETE FROM bodystats 
-            WHERE user_id = :uid AND entry_date = :entry_date AND user_defined_stat = :user_stat");
+            WHERE user_id = :uid AND entry_date = :entry_date AND body_weight = :bodyweight");
         $stmt->bindParam(":uid", $uid);
         $stmt->bindParam(":entry_date", $placeholder['date']);
-        $stmt->bindParam(":user_stat", $placeholder['user_stat']);
+        $stmt->bindParam(":bodyweight", $placeholder['bodyweight']);
         $stmt->execute();
         echo "Success";
     } catch (PDOException $e) {

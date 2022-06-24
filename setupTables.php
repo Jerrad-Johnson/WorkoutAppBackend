@@ -38,7 +38,7 @@ try {
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(8) UNSIGNED NOT NULL,
     session_date DATE NOT NULL,
-    session_title VARCHAR(40),
+    session_title VARCHAR(40) NOT NULL,
     /*session_number INT(5) UNSIGNED NOT NULL, TODO Remove this column*/
     exercise VARCHAR(40) NOT NULL,
     weight_lifted VARCHAR(110) NOT NULL,
