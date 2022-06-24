@@ -55,7 +55,6 @@ try {
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(8) UNSIGNED NOT NULL,
     entry_date DATE NOT NULL,
-    measurement_date DATE NOT NULL,
     body_weight INT(4) UNSIGNED,
     user_defined_measurement DECIMAL(7,2) UNSIGNED,
     user_defined_stat VARCHAR(30)

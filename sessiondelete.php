@@ -18,7 +18,7 @@ if ($uid !== false) {
         $stmt->bindParam(':date', $placeholder['date']);
         $stmt->bindParam(':uid', $uid);
         $stmt->execute();
-        echo "success";
+        echo "Success";
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
