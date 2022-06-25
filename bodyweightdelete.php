@@ -2,6 +2,7 @@
 session_start();
 include "./connect.php";
 include "./utilities/getUID.php";
+include "./utilities/standardizedResponse.php";
 
 $placeholder = array(
     "date" => "2022-02-02",
@@ -18,13 +19,13 @@ if ($uid !== false) {
         $stmt->bindParam(":entry_date", $placeholder['date']);
         $stmt->bindParam(":bodyweight", $placeholder['bodyweight']);
         $stmt->execute();
-        echo "Success";
+        standardizedResponse("Success");
     } catch (Exception $e) {
-        echo json_encode($e->getMessage());
+        standardizedResponse($e->getMessage());
         return;
     }
 } else {
-    echo "Cannot find user; try logging in again.";
+    standardizedResponse("Cannot find user; try logging in again.");
 }
 
 ?>

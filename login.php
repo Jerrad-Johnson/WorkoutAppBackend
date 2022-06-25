@@ -2,6 +2,7 @@
 session_start();
 include "./connect.php";
 include "./utilities/checkAuthentication.php";
+include "./utilities/standardizedResponse.php";
 
 $entry = json_decode(file_get_contents('php://input'));
 
@@ -15,17 +16,17 @@ if (!checkAuth()){
         if (password_verify($entry->password, $results['password'])){
             $_SESSION['authenticated'] = true;
             $_SESSION['username'] = $entry->username;
-            echo "Correct password.";
+            standardizedResponse("Correct password.");
         } else {
-            echo "Wrong password.";
+            standardizedResponse("Wrong password.");
         }
 
     } catch (Exception $e){
-        echo json_encode($e->getMessage());
+        standardizedResponse($e->getMessage());
         return;
     }
 } else {
-    echo "Already logged in.";
+    standardizedResponse("Already logged in.");
 }
 
 ?>

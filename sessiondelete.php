@@ -2,6 +2,7 @@
 session_start();
 include "./connect.php";
 include "./utilities/getUID.php";
+include "./utilities/standardizedResponse.php";
 
 $placeholder = array(
     "date" => "2022-02-02",
@@ -15,9 +16,9 @@ if ($uid !== false) {
         $stmt->bindParam(':date', $placeholder['date']);
         $stmt->bindParam(':uid', $uid);
         $stmt->execute();
-        echo "Success";
+        standardizedResponse("Success");
     } catch (Exception $e) {
-        echo json_encode($e->getMessage());
+        standardizedResponse($e->getMessage());
         return;
     }
 }

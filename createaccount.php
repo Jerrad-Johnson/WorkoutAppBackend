@@ -20,10 +20,10 @@ try {
     $sth->bindParam(':pass', $hash);
     $sth->bindParam(':email', $placeholder['email']);
     $sth->execute();
-    echo $sth->fetch();
-    echo "Success";
+    //echo $sth->fetch();
+    standardizedResponse("Success";
 } catch(Exception $e){
-    echo json_encode($e->getMessage());
+    standardizedResponse($e->getMessage());
     return;
 }
 $conn = null;

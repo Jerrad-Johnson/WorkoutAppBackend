@@ -1,4 +1,6 @@
 <?php
+include "./utilities/standardizedResponse.php";
+
 $servername = "localhost";
 $username = "workoutappadmin";
 $password = "r12m6c5IK0jz92Q2lHz";
@@ -10,7 +12,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected";
 } catch(Exception $e) {
-    echo json_encode($e->getMessage());
+    standardizedResponse($e->getMessage());
     return;
 }
 
