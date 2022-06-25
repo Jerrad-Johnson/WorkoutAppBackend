@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include "./connect.php";
@@ -31,6 +30,5 @@ if($uid !== false){
 } else {
     echo "Cannot find user; try logging in again.";
 }
-
 
 ?>

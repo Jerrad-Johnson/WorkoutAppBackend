@@ -1,6 +1,3 @@
-<html>
-<body style="color: #999">
-
 <?php
 include "./connect.php";
 ?>
@@ -31,5 +28,3 @@ try {
 $conn = null;
 
 ?>
-</body>
-</html>

@@ -1,6 +1,3 @@
-<html>
-<body style="color: #999">
-
 <?php
 session_start();
 include "./connect.php";
@@ -25,5 +22,3 @@ if ($uid !== false) {
 }
 
 ?>
-</body>
-</html>
