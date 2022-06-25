@@ -10,8 +10,9 @@ function getUID(){
             $stmt->execute();
             $idResult = $stmt->fetch();
             return $idResult['id'];
-        } catch (PDOException $e){
-            //echo $e->getMessage();
+        } catch (Exception $e){
+            echo json_encode($e->getMessage());
+            return;
         }
     } else {
         return false;

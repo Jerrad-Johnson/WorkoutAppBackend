@@ -24,8 +24,9 @@ if ($uid !== false) {
         $stmt->bindParam(":user_stat", $placeholder['user_stat']);
         $stmt->execute();
         echo "success";
-    } catch (PDOException $e) {
-        echo $e->getMessage();
+    } catch (Exception $e) {
+        echo json_encode($e->getMessage());
+        return;
     }
 } else {
     echo "Cannot find user; try logging in again.";

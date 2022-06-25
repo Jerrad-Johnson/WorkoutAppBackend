@@ -20,8 +20,9 @@ if (!checkAuth()){
             echo "Wrong password.";
         }
 
-    } catch (PDOException $e){
-        echo $e->getMessage();
+    } catch (Exception $e){
+        echo json_encode($e->getMessage());
+        return;
     }
 } else {
     echo "Already logged in.";

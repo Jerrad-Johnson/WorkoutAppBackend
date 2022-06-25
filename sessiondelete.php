@@ -16,8 +16,9 @@ if ($uid !== false) {
         $stmt->bindParam(':uid', $uid);
         $stmt->execute();
         echo "Success";
-    } catch (PDOException $e) {
-        echo $e->getMessage();
+    } catch (Exception $e) {
+        echo json_encode($e->getMessage());
+        return;
     }
 }
 

@@ -23,8 +23,9 @@ if($uid !== false){
             $stmt->bindParam(':reps', $repsAsString);
             $stmt->execute();
             replyAfterSetOfQueries($count, $entries);
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo json_encode($e->getMessage());
+            return;
         }
     }
 } else {
@@ -34,7 +35,7 @@ if($uid !== false){
 function replyAfterSetOfQueries(&$count, $entries){
     $count++;
     if ($count === count($entries)){
-        $reply = json_encode(array("Success"));
+        $reply = json_encode("Success");
         echo $reply;
     }
 }

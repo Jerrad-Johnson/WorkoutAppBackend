@@ -19,8 +19,9 @@ if ($uid !== false) {
         $stmt->bindParam(":bodyweight", $placeholder['bodyweight']);
         $stmt->execute();
         echo "Success";
-    } catch (PDOException $e) {
-        echo $e->getMessage();
+    } catch (Exception $e) {
+        echo json_encode($e->getMessage());
+        return;
     }
 } else {
     echo "Cannot find user; try logging in again.";

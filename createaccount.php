@@ -22,8 +22,9 @@ try {
     $sth->execute();
     echo $sth->fetch();
     echo "Success";
-} catch(PDOException $e){
-    echo $e->getMessage();
+} catch(Exception $e){
+    echo json_encode($e->getMessage());
+    return;
 }
 $conn = null;
 

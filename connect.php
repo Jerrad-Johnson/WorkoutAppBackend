@@ -9,9 +9,9 @@ try {
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //echo "Connected";
-} catch(PDOException $e) {
-    $_POST[json_encode("Failed" . $e->getMessage())];
-    //echo "Connection failed: " . $e->getMessage();
+} catch(Exception $e) {
+    echo json_encode($e->getMessage());
+    return;
 }
 
 ?>
