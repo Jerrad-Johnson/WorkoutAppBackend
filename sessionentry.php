@@ -3,7 +3,6 @@ session_start();
 include "./connect.php";
 //include "./supplemental/checkAuthentication.php";
 include "./utilities/getUID.php";
-include "./utilities/standardizedResponse.php";
 
 $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();

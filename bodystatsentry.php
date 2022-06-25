@@ -2,7 +2,6 @@
 session_start();
 include "./connect.php";
 include "./utilities/getUID.php";
-include "./utilities/standardizedResponse.php";
 
 $placeholder = array(
     "date" => "2022-02-02",
@@ -10,7 +9,6 @@ $placeholder = array(
     "user_measurement" => 34.02,
     "user_stat" => "Chest"
 );
-
 
 $uid = getUID();
 
@@ -32,6 +30,5 @@ if ($uid !== false) {
 } else {
     standardizedResponse("Cannot find user; try logging in again.");
 }
-
 
 ?>

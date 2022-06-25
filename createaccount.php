@@ -1,10 +1,5 @@
 <?php
 include "./connect.php";
-?>
-
-<br />
-
-<?php
 
 $placeholder = array(
     "password" => "abc",

@@ -2,7 +2,6 @@
 session_start();
 include "./connect.php";
 include "./utilities/checkAuthentication.php";
-include "./utilities/standardizedResponse.php";
 
 $entry = json_decode(file_get_contents('php://input'));
 

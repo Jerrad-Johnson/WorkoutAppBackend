@@ -2,7 +2,6 @@
 session_start();
 include "./connect.php";
 include "./utilities/getUID.php";
-include "./utilities/standardizedResponse.php";
 
 $placeholder = array(
     "date" => "2022-02-02",
