@@ -1,5 +1,3 @@
-<html>
-<body style="color: #999">
 
 <?php
 session_start();
@@ -24,7 +22,8 @@ if($uid !== false){
             $stmt->bindParam(':weight_lifted', $weightLiftedAsString);
             $stmt->bindParam(':reps', $repsAsString);
             $stmt->execute();
-            echo "Success";
+            $reply = json_encode(array("Success"));
+            echo $reply;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -35,5 +34,3 @@ if($uid !== false){
 
 
 ?>
-</body>
-</html>

@@ -1,6 +1,3 @@
-<html>
-<body style="color: #999">
-
 <?php
 include "checkAuthentication.php";
 
@@ -22,6 +19,3 @@ function getUID(){
 }
 
 ?>
-
-</body>
-</html>
