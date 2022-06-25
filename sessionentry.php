@@ -6,6 +6,7 @@ include "./utilities/getUID.php";
 
 $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();
+$count = 0;
 
 if($uid !== false){
     foreach ($entries as $entry){
@@ -21,14 +22,22 @@ if($uid !== false){
             $stmt->bindParam(':weight_lifted', $weightLiftedAsString);
             $stmt->bindParam(':reps', $repsAsString);
             $stmt->execute();
-            $reply = json_encode(array("Success"));
-            echo $reply;
+            replyAfterSetOfQueries($count, $entries);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            echo json_encode($e->getMessage());
         }
     }
 } else {
     echo "Cannot find user; try logging in again.";
 }
 
+function replyAfterSetOfQueries(&$count, $entries){
+    $count++;
+    if ($count === count($entries)){
+        $reply = json_encode(array("Success"));
+        echo $reply;
+    }
+}
+
 ?>
+
