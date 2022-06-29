@@ -2,19 +2,14 @@
 session_start();
 include "./utilities/standardizedResponse.php";
 include "./connect.php";
-//include "./supplemental/checkAuthentication.php";
 include "./utilities/getUID.php";
 include "./utilities/convertArraysToStringForDatabase.php";
+include "./utilities/replyAfterQueries.php";
 
 $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();
-$count = 0;
-/*$repsAsString = convertArraysToStringForDatabase($entries->reps);
-$weightsAsString = convertArraysToStringForDatabase($entries->weights);
-echo $weightsAsString;*/
 
 if($uid !== false){
-
     for ($i = 0; $i < count($entries->reps); $i++){
         $repsAsString[$i] = implode(",", $entries->reps[$i]);
         $weightLiftedAsString[$i] = implode(",", $entries->weights[$i]);
@@ -28,7 +23,7 @@ if($uid !== false){
             $stmt->bindParam(':weight_lifted', $weightLiftedAsString[$i]);
             $stmt->bindParam(':reps', $repsAsString[$i]);
             $stmt->execute();
-            replyAfterSetOfQueries($count, $entries);
+            replyAfterQueries($count, $entries);
         } catch (Exception $e) {
             standardizedResponse($e->getMessage());
             return;
@@ -36,13 +31,6 @@ if($uid !== false){
     }
 } else {
     echo "Cannot find user; try logging in again.";
-}
-
-function replyAfterSetOfQueries(&$count, $entries){
-    $count++;
-    if ($count === count($entries->reps)){
-        standardizedResponse("Success");
-    }
 }
 
 ?>
