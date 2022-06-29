@@ -2,9 +2,9 @@
 
 $count = 0;
 
-function replyAfterQueries(&$count, $entries){
+function replyAfterQueries(&$count, $entryArray){
     $count++;
-    if ($count === count($entries->reps)){
+    if ($count === count($entryArray)){
         standardizedResponse("Success");
     }
 }
