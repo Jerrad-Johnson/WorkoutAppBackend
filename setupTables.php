@@ -65,5 +65,11 @@ try {
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
+/* Also:
+ * ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise);
+ *
+ *
+ */
+
 ?>
 
