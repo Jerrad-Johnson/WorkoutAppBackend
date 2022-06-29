@@ -17,7 +17,7 @@ if($uid !== false) {
         $stmt->bindParam(':title', $entries->title);
         $stmt->execute();
         $entryExists = $stmt->fetch();
-        if (!$entryExists) {
+        if ($entryExists) {
             standardizedResponse("Entry with the same date and title already exists.");
             return;
         }
