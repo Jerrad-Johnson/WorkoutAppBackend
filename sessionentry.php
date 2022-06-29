@@ -44,8 +44,19 @@ if($uid !== false) {
             return;
         }
     }
+
+    try {
+        for ($i = 0; $i < count($entries->exercises); $i++){
+            $stmt = $conn->prepare("INSERT INTO exercises (user_id, exercise) VALUES (:uid, :exercise)");
+            $stmt->bindParam(':uid', $uid);
+            $stmt->bindParam(':exercise', $entries->exercises[$i]);
+            $stmt->execute();
+        }
+    } catch (Exception $e){
+        return;
+    }
 } else {
-    echo "Cannot find user; try logging in again.";
+    standardizedResponse("Cannot find user; try logging in again.");
 }
 
 ?>
