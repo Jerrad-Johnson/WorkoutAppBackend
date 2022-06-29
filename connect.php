@@ -1,5 +1,4 @@
 <?php
-include "./utilities/standardizedResponse.php";
 
 $servername = "localhost";
 $username = "workoutappadmin";
