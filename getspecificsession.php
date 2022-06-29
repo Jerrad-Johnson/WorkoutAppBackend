@@ -16,7 +16,6 @@ if ($uid !== false){
         $stmt->bindParam(":session_date", $sessionToFind->date);
         $stmt->bindParam(":session_title", $sessionToFind->title);
         $stmt->execute();
-        print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
