@@ -9,10 +9,10 @@ $uid = getUID();
 
 if ($uid !== false){
     try {
-        $stmt = $conn->prepare("SELECT DISTINCT exercise FROM exercises WHERE user_id = :uid");
+        $stmt = $conn->prepare("SELECT session_date, session_title FROM sessions WHERE user_id = :uid ORDER BY session_date DESC LIMIT 20");
         $stmt->bindParam(":uid", $uid);
         $stmt->execute();
-        standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_COLUMN));
+        standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
     }
