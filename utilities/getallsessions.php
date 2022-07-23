@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include "./utilities/standardizedResponse.php";
 include "./connect.php";
@@ -8,7 +9,7 @@ include "./utilities/replyAfterQueries.php";
 $uid = getUID();
 $sessionToFind = json_decode(file_get_contents('php://input'));
 
-if ($uid !== false){
+if ($uid !== false) {
     try {
         $stmt = $conn->prepare("SELECT session_date, session_title, session_date, exercise, weight_lifted, reps FROM sessions 
             WHERE user_id = :uid AND session_date = :session_date AND session_title = :session_title");
@@ -17,7 +18,7 @@ if ($uid !== false){
         $stmt->bindParam(":session_title", $sessionToFind->title);
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
-    } catch (Exception $e){
+    } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
 }

@@ -18,3 +18,5 @@ if ($uid !== false){
         standardizedResponse($e->getMessage());
     }
 }
+
+?>
