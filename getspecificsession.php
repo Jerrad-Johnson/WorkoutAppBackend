@@ -7,7 +7,6 @@ include "./utilities/replyAfterQueries.php";
 
 $uid = getUID();
 $sessionToFind = json_decode(file_get_contents('php://input'));
-echo $sessionToFind;
 
 if ($uid !== false){
     try {
