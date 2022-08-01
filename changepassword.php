@@ -6,21 +6,24 @@ include "./utilities/standardizedResponse.php";
 
 $passwords = json_decode(file_get_contents('php://input'));
 $uid = getUID();
-$oldPasswordFromFrontendHashed = password_hash($passwords->oldPassword);
+/*$oldPasswordFromFrontendHashed = password_hash($passwords->oldPassword, PASSWORD_DEFAULT);*/
 
-if ($uid !== false) {
+if ($uid !== false){
     try {
         $stmt = $conn->prepare("SELECT password FROM users WHERE id = :uid");
         $stmt->bindParam(':uid', $uid);
         $stmt->execute();
-        $hashedOldPWFromDB = $stmt->fetch();
+        $hashedOldPWFromDB = $stmt->fetch(PDO::FETCH_OBJ);
     } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
 
-    if (password_verify($hashedOldPWFromDB) === password_verify($oldPasswordFromFrontendHashed)) {
+//print_r($hashedOldPWFromDB->password);
+    print_r($passwords->oldPassword);
+
+    if (password_verify($passwords->oldPassword, $hashedOldPWFromDB->password)){
         try {
-            $newPasswordHashed = password_hash($passwords->newPassword);
+            $newPasswordHashed = password_hash($passwords->newPassword, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("UPDATE users SET password = :newPasswordHashed WHERE id = :uid");
             $stmt->bindParam(':uid', $uid);
             $stmt->bindParam(':newPasswordHashed', $newPasswordHashed);
