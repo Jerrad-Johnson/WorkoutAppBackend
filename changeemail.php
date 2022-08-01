@@ -7,10 +7,13 @@ include "./utilities/standardizedResponse.php";
 $email = json_decode(file_get_contents('php://input'));
 $uid = getUID();
 
+
 if (!filter_var($email->newEmailAddress, FILTER_VALIDATE_EMAIL)){
-    standardizedResponse("Invalid e-mail address");
+    standardizedResponse("Invalid e-mail address.");
     return;
 }
+
+//TODO Add check whether e-mail address matches current address.
 
 if ($uid !== false){
     try {
