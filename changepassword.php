@@ -32,6 +32,8 @@ if ($uid !== false){
     } else {
         standardizedResponse("Wrong password");
     }
+} else {
+    standardizedResponse("Not logged in.");
 }
 
 ?>
