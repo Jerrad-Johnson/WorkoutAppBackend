@@ -6,7 +6,6 @@ include "./utilities/standardizedResponse.php";
 
 $passwords = json_decode(file_get_contents('php://input'));
 $uid = getUID();
-/*$oldPasswordFromFrontendHashed = password_hash($passwords->oldPassword, PASSWORD_DEFAULT);*/
 
 if ($uid !== false){
     try {
@@ -17,9 +16,6 @@ if ($uid !== false){
     } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
-
-//print_r($hashedOldPWFromDB->password);
-    print_r($passwords->oldPassword);
 
     if (password_verify($passwords->oldPassword, $hashedOldPWFromDB->password)){
         try {
