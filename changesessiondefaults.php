@@ -9,15 +9,17 @@ $uid = getUID();
 
 if ($uid !== false){
     try {
-            $stmt = $conn->prepare("
-            INSERT INTO usersessiondefaults(user_id, reps, sets, exercises, weight) 
-            VALUES(:uid, :reps, :sets, :exercises, :weight) 
-            ON DUPLICATE KEY UPDATE reps = :reps, sets = :sets, exercises = :exercises, weight = :weight");
-            $stmt->bindParam(':reps', $entry->reps);
-            $stmt->bindParam(':sets', $entry->sets);
-            $stmt->bindParam(':exercises', $entry->exercises);
-            $stmt->bindParam(':weight', $entry->weight);
-            $stmt->execute();
+        $stmt = $conn->prepare("
+        INSERT INTO usersessiondefaults(user_id, reps, sets, exercises, weight) 
+        VALUES(:uid, :reps, :sets, :exercises, :weight) 
+        ON DUPLICATE KEY UPDATE reps = :reps, sets = :sets, exercises = :exercises, weight = :weight");
+        $stmt->bindParam(':uid', $uid);
+        $stmt->bindParam(':reps', $entry->reps);
+        $stmt->bindParam(':sets', $entry->sets);
+        $stmt->bindParam(':exercises', $entry->exercises);
+        $stmt->bindParam(':weight', $entry->weight);
+        $stmt->execute();
+        standardizedResponse("Success");
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
     }
