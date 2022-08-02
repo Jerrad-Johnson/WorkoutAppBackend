@@ -68,7 +68,7 @@ try {
 try {
    $sql = "CREATE TABLE userSessionDefaults(
    id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-   user_id INT(8) UNSIGNED NOT NULL,
+   user_id INT(8) UNSIGNED NOT NULL UNIQUE,
    reps INT(2) UNSIGNED NOT NULL,
    sets INT(2) UNSIGNED NOT NULL,
    exercises INT(2) UNSIGNED NOT NULL,
