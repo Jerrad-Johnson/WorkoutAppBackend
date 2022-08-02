@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers:*");*/
 include "./connect.php";
 
 try {
-$sql = "CREATE TABLE users (
+$sql = "CREATE TABLE users(
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     username VARCHAR(20) NOT NULL UNIQUE,
@@ -15,7 +15,7 @@ $sql = "CREATE TABLE users (
     )";
   $conn->exec($sql);
   echo "<br /> Table users created successfully.<br />";
-} catch(PDOException $e) {
+} catch(PDOException $e){
   echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
@@ -28,7 +28,7 @@ try {
     )";
     $conn->exec($sql);
     echo "<br /> Table exercises created successfully.<br />";
-} catch(PDOException $e) {
+} catch(PDOException $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
@@ -46,7 +46,7 @@ try {
     )";
     $conn->exec($sql);
     echo "<br /> Table sessions created successfully.<br />";
-} catch(PDOException $e) {
+} catch(PDOException $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
@@ -61,7 +61,22 @@ try {
     )";
     $conn->exec($sql);
     echo "<br /> Table bodystats created successfully.<br />";
-} catch(PDOException $e) {
+} catch(PDOException $e){
+    echo "<br />" . $sql . "<br>" . $e->getMessage();
+}
+
+try {
+   $sql = "CREATE TABLE userSessionDefaults(
+   id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+   user_id INT(8) UNSIGNED NOT NULL,
+   reps INT(2) UNSIGNED NOT NULL,
+   sets INT(2) UNSIGNED NOT NULL,
+   exercises INT(2) UNSIGNED NOT NULL,
+   weight INT(5) UNSIGNED NOT NULL
+   )";
+   $conn->exec($sql);
+    echo "<br /> Table userSessionDefaults created successfully.<br />";
+} catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
