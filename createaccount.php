@@ -16,7 +16,6 @@ try {
     $sth->bindParam(':pass', $hashedPassword);
     $sth->bindParam(':email', $entry->email);
     $sth->execute();
-    //echo $sth->fetch();
     standardizedResponse("Success");
 } catch(Exception $e){
     standardizedResponse($e->getMessage());
