@@ -1,22 +1,19 @@
 <?php
 include "./connect.php";
+include "./utilities/standardizedResponse.php";
 
-$placeholder = array(
-    "password" => "abc",
-    "username" => "elseif",
-    "email" => "j_johnson21@mail.fhsu.edu"
-);
+$entry = json_decode(file_get_contents('php://input'));
 
-$hash = password_hash($placeholder['password'], PASSWORD_DEFAULT);
+$hashedPassword = password_hash($entry->password, PASSWORD_DEFAULT);
 
 try {
     $sth = $conn->prepare("INSERT INTO users (username, password, email) VALUES(:user, :pass, :email)");
-    $sth->bindParam(':user', $placeholder['username']);
-    $sth->bindParam(':pass', $hash);
-    $sth->bindParam(':email', $placeholder['email']);
+    $sth->bindParam(':user', $entry->username);
+    $sth->bindParam(':pass', $hashedPassword);
+    $sth->bindParam(':email', $entry->email);
     $sth->execute();
     //echo $sth->fetch();
-    standardizedResponse("Success";
+    standardizedResponse("Success");
 } catch(Exception $e){
     standardizedResponse($e->getMessage());
     return;
