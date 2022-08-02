@@ -9,7 +9,7 @@ include "./utilities/replyAfterQueries.php";
 $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();
 
-if($uid !== false) {
+if ($uid !== false) {
     try {
         $stmt = $conn->prepare("SELECT id FROM sessions WHERE session_date = :date AND user_id = :uid AND session_title = :title");
         $stmt->bindParam(':date', $entries->date);
