@@ -12,7 +12,7 @@ if ($uid !== false){
     try {
         $stmt = $conn->prepare("SELECT DISTINCT session_date, session_title FROM sessions WHERE session_date BETWEEN NOW() - INTERVAL 365 DAY AND NOW()");
         $stmt->execute();
-        standardizedResponse($stmt->fetchAll(PDO::FETCH_COLUMN););
+        standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
     }
