@@ -15,7 +15,9 @@ if ($uid === false) {
 
 if ($type === "last365") {
     try {
-        $stmt = $conn->prepare("SELECT DISTINCT session_date, session_title FROM sessions WHERE session_date BETWEEN NOW() - INTERVAL 365 DAY AND NOW()");
+        $stmt = $conn->prepare("SELECT DISTINCT session_date, session_title FROM sessions WHERE session_date 
+            BETWEEN NOW() - INTERVAL 365 DAY AND NOW() AND user_id = :uid");
+        $stmt->bindParam(":uid", $uid);
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
     } catch (Exception $e) {
