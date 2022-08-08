@@ -15,7 +15,7 @@ try {
     $stmt = $conn->prepare("SELECT DISTINCT YEAR(session_date) FROM sessions WHERE user_id = :uid");
     $stmt->bindParam(":uid", $uid);
     $stmt->execute();
-    standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
+    standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_COLUMN));
 } catch (Exception $e) {
     standardizedResponse($e->getMessage());
 }
