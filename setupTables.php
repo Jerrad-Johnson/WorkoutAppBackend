@@ -80,21 +80,9 @@ try {
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
-try {
-    $sql = "CREATE TABLE yearsOfEntries(
-   id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-   user_id INT(8) UNSIGNED NOT NULL UNIQUE,
-   year INT(4) UNSIGNED NOT NULL
-   )";
-    $conn->exec($sql);
-    echo "<br /> Table yearsOfEntries created successfully.<br />";
-} catch (Exception $e){
-    echo "<br />" . $sql . "<br>" . $e->getMessage();
-}
 
 /* Also:
  * ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise);
- * ALTER TABLE yearsofentries ADD INDEX unique_year_userid_pair (user_id, year);
  *
  */
 
