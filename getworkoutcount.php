@@ -6,15 +6,23 @@ include "./utilities/getUID.php";
 include "./utilities/replyAfterQueries.php";
 
 $uid = getUID();
-$sessionToFind = json_decode(file_get_contents('php://input'));
+$type = json_decode(file_get_contents('php://input'));
 
-if ($uid !== false){
+if ($uid === false) {
+    standardizedResponse("Not logged in");
+    return;
+}
+
+if ($type === "last365") {
     try {
         $stmt = $conn->prepare("SELECT DISTINCT session_date, session_title FROM sessions WHERE session_date BETWEEN NOW() - INTERVAL 365 DAY AND NOW()");
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
-    } catch (Exception $e){
+    } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
 }
+
+//if ($type === )
+
         /*$stmt = $conn->prepare("SELECT DISTINCT session_date, session_title FROM sessions WHERE user_id = :id AND YEAR(session_date) = YEAR(:selectedYear)");*/
