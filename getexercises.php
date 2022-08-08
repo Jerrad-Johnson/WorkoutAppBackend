@@ -9,7 +9,7 @@ $uid = getUID();
 
 if ($uid !== false){
     try {
-        $stmt = $conn->prepare("SELECT DISTINCT exercise FROM exercises WHERE user_id = :uid");
+        $stmt = $conn->prepare("SELECT DISTINCT exercise FROM sessions WHERE user_id = :uid");
         $stmt->bindParam(":uid", $uid);
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_COLUMN));

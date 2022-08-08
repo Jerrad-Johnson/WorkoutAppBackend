@@ -8,6 +8,7 @@ include "./utilities/replyAfterQueries.php";
 
 $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();
+$year = substr($entries->date, 0, 4);
 
 if ($uid !== false) {
     try {
@@ -50,6 +51,17 @@ if ($uid !== false) {
             $stmt = $conn->prepare("INSERT INTO exercises (user_id, exercise) VALUES (:uid, :exercise)");
             $stmt->bindParam(':uid', $uid);
             $stmt->bindParam(':exercise', $entries->exercises[$i]);
+            $stmt->execute();
+        }
+    } catch (Exception $e){
+        return;
+    }
+
+    try {
+        for ($i = 0; $i < count($entries->exercises); $i++){
+            $stmt = $conn->prepare("INSERT INTO yearsofentries (user_id, year) VALUES (:uid, :year)");
+            $stmt->bindParam(':uid', $uid);
+            $stmt->bindParam(':year', $year);
             $stmt->execute();
         }
     } catch (Exception $e){
