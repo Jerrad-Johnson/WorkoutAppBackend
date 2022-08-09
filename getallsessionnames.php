@@ -6,20 +6,19 @@ include "./utilities/getUID.php";
 include "./utilities/replyAfterQueries.php";
 
 $uid = getUID();
-$exercise = json_decode(file_get_contents('php://input'));
+$sessionToFind = json_decode(file_get_contents('php://input'));
 
-//TODO Set limit for mobile-readability.
-
-if ($uid !== false){
+if ($uid !== false) {
     try {
-        $stmt = $conn->prepare("SELECT session_date, session_title, exercise, weight_lifted, reps FROM sessions WHERE user_id = :uid AND exercise = :exercise ORDER BY session_date LIMIT 50");
+        $stmt = $conn->prepare("SELECT DISTINCT session_title FROM sessions WHERE user_id = :uid LIMIT 100"); //TODO Allow user to select range (limit)
         $stmt->bindParam(":uid", $uid);
-        $stmt->bindParam(":exercise", $exercise);
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
-    } catch (Exception $e){
+    } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
+} else {
+    standardizedResponse("Cannot find user; try logging in again.");
 }
 
 ?>
