@@ -8,6 +8,8 @@ include "./utilities/replyAfterQueries.php";
 $uid = getUID();
 $exercise = json_decode(file_get_contents('php://input'));
 
+//TODO Set limit for mobile-readability.
+
 if ($uid !== false){
     try {
         $stmt = $conn->prepare("SELECT session_date, session_title, exercise, weight_lifted, reps FROM sessions WHERE user_id = :uid AND exercise = :exercise");
