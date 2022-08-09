@@ -14,7 +14,7 @@ if ($uid !== false){
         $stmt->bindParam(":uid", $uid);
         $stmt->bindParam(":exercise", $exercise);
         $stmt->execute();
-        standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_COLUMN));
+        standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
     }
