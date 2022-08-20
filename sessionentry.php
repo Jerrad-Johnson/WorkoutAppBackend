@@ -23,10 +23,11 @@ if ($uid !== false) {
             return;
         }
     } catch (Exception $e){
-        echo $e;
+        standardizedResponse($e->getMessage());
+        return;
     }
 
-    for ($i = 0; $i < count($entries->reps); $i++){
+   for ($i = 0; $i < count($entries->reps); $i++){
         $repsAsString[$i] = implode(",", $entries->reps[$i]);
         $weightLiftedAsString[$i] = implode(",", $entries->weights[$i]);
         try {
@@ -39,14 +40,14 @@ if ($uid !== false) {
             $stmt->bindParam(':weight_lifted', $weightLiftedAsString[$i]);
             $stmt->bindParam(':reps', $repsAsString[$i]);
             $stmt->execute();
-            replyAfterQueries($count, $entries->reps);
+            replyAfterQueries($count, $entries->reps);*/
         } catch (Exception $e) {
             standardizedResponse($e->getMessage());
             return;
         }
     }
 
-    try {
+    try { /*TODO Make compound key*/
         for ($i = 0; $i < count($entries->exercises); $i++){
             $stmt = $conn->prepare("INSERT INTO exercises (user_id, exercise) VALUES (:uid, :exercise)");
             $stmt->bindParam(':uid', $uid);
@@ -54,10 +55,9 @@ if ($uid !== false) {
             $stmt->execute();
         }
     } catch (Exception $e){
-        return;
     }
 
-    try {
+    try { /*TODO Is this still used?*/
         for ($i = 0; $i < count($entries->exercises); $i++){
             $stmt = $conn->prepare("INSERT INTO yearsofentries (user_id, year) VALUES (:uid, :year)");
             $stmt->bindParam(':uid', $uid);
@@ -65,8 +65,21 @@ if ($uid !== false) {
             $stmt->execute();
         }
     } catch (Exception $e){
-        return;
     }
+
+    try { /*TODO Make compound key*/
+        $stmt = $conn->prepare("INSERT INTO usersessionnotes (user_id, notes, session_title, session_date) VALUES (:uid, :notes, :title, :date)");
+        $stmt->bindParam(':uid', $uid);
+        $stmt->bindParam(':notes', $entries->notes);
+        $stmt->bindParam(':title', $entries->title);
+        $stmt->bindParam(':date', $entries->date);
+        $stmt->execute();
+        standardizedResponse("Success");
+    } catch (Exception $e){
+    }
+
+
+
 } else {
     standardizedResponse("Cannot find user; try logging in again.");
 }

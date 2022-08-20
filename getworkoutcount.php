@@ -13,7 +13,7 @@ if ($uid === false) {
     return;
 }
 
-if ($year === "Last 365") {
+if ($year === "Last 365 Days") {
     try {
         $stmt = $conn->prepare("SELECT DISTINCT session_date, session_title FROM sessions WHERE session_date 
             BETWEEN NOW() - INTERVAL 365 DAY AND NOW() AND user_id = :uid");

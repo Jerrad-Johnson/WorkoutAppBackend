@@ -66,7 +66,7 @@ try {
 }
 
 try {
-   $sql = "CREATE TABLE userSessionDefaults(
+   $sql = "CREATE TABLE usersessiondefaults(
    id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
    user_id INT(8) UNSIGNED NOT NULL UNIQUE,
    reps INT(2) UNSIGNED NOT NULL,
@@ -75,7 +75,21 @@ try {
    weight INT(5) UNSIGNED NOT NULL
    )";
    $conn->exec($sql);
-    echo "<br /> Table userSessionDefaults created successfully.<br />";
+    echo "<br /> Table usersessiondefaults created successfully.<br />";
+} catch (Exception $e){
+    echo "<br />" . $sql . "<br>" . $e->getMessage();
+}
+
+try {
+    $sql = "CREATE TABLE usersessionnotes(
+    id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    user_id INT(8) UNSIGNED NOT NULL,
+    notes VARCHAR(5000) NOT NULL,
+    session_date DATE NOT NULL,
+    session_title VARCHAR(40) NOT NULL
+   )";
+    $conn->exec($sql);
+    echo "<br /> Table usersessionnotes created successfully.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
