@@ -10,7 +10,7 @@ $sessionToFind = json_decode(file_get_contents('php://input'));
 
 if ($uid !== false) {
     try {
-        $stmt = $conn->prepare("SELECT session_date, session_title, notes FROM usersessionnotes 
+        $stmt = $conn->prepare("SELECT session_date FROM usersessionnotes 
             WHERE user_id = :uid ORDER BY session_date DESC");
         $stmt->bindParam(":uid", $uid);
         $stmt->execute();
