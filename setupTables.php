@@ -97,7 +97,7 @@ try {
 
 /* Also:
  * ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise); -- TODO !important Does not work, allows duplicate entries. Fix this.
- *
+ * DISALLOW EMPTY NOTES STRINGS IN USERSESSIONNOTES
  */
 
 ?>

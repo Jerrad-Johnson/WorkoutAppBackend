@@ -40,7 +40,7 @@ if ($uid !== false) {
             $stmt->bindParam(':weight_lifted', $weightLiftedAsString[$i]);
             $stmt->bindParam(':reps', $repsAsString[$i]);
             $stmt->execute();
-            replyAfterQueries($count, $entries->reps);*/
+            replyAfterQueries($count, $entries->reps);
         } catch (Exception $e) {
             standardizedResponse($e->getMessage());
             return;
@@ -74,7 +74,6 @@ if ($uid !== false) {
         $stmt->bindParam(':title', $entries->title);
         $stmt->bindParam(':date', $entries->date);
         $stmt->execute();
-        standardizedResponse("Success");
     } catch (Exception $e){
     }
 
