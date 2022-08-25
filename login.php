@@ -8,19 +8,31 @@ $entry = json_decode(file_get_contents('php://input'));
 
 if (!checkAuth()){
     try {
-        $stmt = $conn->prepare("SELECT password, username FROM users WHERE username = :username");
+        $stmt = $conn->prepare("SELECT username FROM users WHERE username = :username");
         $stmt->bindParam(':username', $entry->username);
         $stmt->execute();
-        $results = $stmt->fetch();
+        $username = $stmt->fetchColumn();
+        if (!$username) {
+            standardizedResponse("Username not found.");
+            return;
+        }
+    } catch (Exception $e) {
+        standardizedResponse($e->getMessage());
+    }
 
-        if (password_verify($entry->password, $results['password'])){
+    try {
+        $stmt = $conn->prepare("SELECT password FROM users WHERE username = :username");
+        $stmt->bindParam(':username', $entry->username);
+        $stmt->execute();
+        $passwordFromDB = $stmt->fetchColumn();
+
+        if (password_verify($entry->password, $passwordFromDB)){
             $_SESSION['authenticated'] = true;
             $_SESSION['username'] = $entry->username;
             standardizedResponse("Correct password.");
         } else {
             standardizedResponse("Wrong password.");
         }
-
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
         return;

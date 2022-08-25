@@ -17,6 +17,14 @@ if ($uid !== false){
         $stmt->bindParam(":session_title", $sessionToFind->title);
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetchAll(PDO::FETCH_ASSOC));
+        $exerciseData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+/*        $stmt = $conn->prepare("SELECT session_date, session_title, exercise, weight_lifted, reps FROM sessions
+            WHERE user_id = :uid AND session_date = :session_date AND session_title = :session_title");
+        $stmt->bindParam(":uid", $uid);
+        $stmt->bindParam(":session_date", $sessionToFind->date);
+        $stmt->bindParam(":session_title", $sessionToFind->title);
+        $stmt->execute();*/
     } catch (Exception $e){
         standardizedResponse($e->getMessage());
     }
