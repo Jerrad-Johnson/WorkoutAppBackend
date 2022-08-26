@@ -1,7 +1,4 @@
 <?php
-/*header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS");
-header("Access-Control-Allow-Headers:*");*/
 
 include "./connect.php";
 
@@ -19,7 +16,6 @@ $sql = "CREATE TABLE users(
   echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
-
 try {
     $sql = "CREATE TABLE exercises(
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -32,14 +28,12 @@ try {
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
-
 try {
     $sql = "CREATE TABLE sessions(
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(8) UNSIGNED NOT NULL,
     session_date DATE NOT NULL,
     session_title VARCHAR(40) NOT NULL,
-    /*session_number INT(5) UNSIGNED NOT NULL, TODO Remove this column*/
     exercise VARCHAR(40) NOT NULL,
     weight_lifted VARCHAR(110) NOT NULL,
     reps VARCHAR(70) NOT NULL
@@ -51,28 +45,13 @@ try {
 }
 
 try {
-    $sql = "CREATE TABLE bodystats(
-    id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    user_id INT(8) UNSIGNED NOT NULL,
-    entry_date DATE NOT NULL,
-    body_weight INT(4) UNSIGNED,
-    user_defined_measurement DECIMAL(7,2) UNSIGNED,
-    user_defined_stat VARCHAR(30)
-    )";
-    $conn->exec($sql);
-    echo "<br /> Table bodystats created successfully.<br />";
-} catch(PDOException $e){
-    echo "<br />" . $sql . "<br>" . $e->getMessage();
-}
-
-try {
    $sql = "CREATE TABLE usersessiondefaults(
    id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
    user_id INT(8) UNSIGNED NOT NULL UNIQUE,
    reps INT(2) UNSIGNED NOT NULL,
    sets INT(2) UNSIGNED NOT NULL,
    exercises INT(2) UNSIGNED NOT NULL,
-   weight INT(5) UNSIGNED NOT NULL
+   weight INT(8) UNSIGNED NOT NULL
    )";
    $conn->exec($sql);
     echo "<br /> Table usersessiondefaults created successfully.<br />";
@@ -93,7 +72,6 @@ try {
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
-
 
 /* Also:
  * ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise); -- TODO !important Does not work, allows duplicate entries. Fix this.
