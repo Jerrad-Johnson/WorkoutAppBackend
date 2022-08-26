@@ -67,7 +67,7 @@ if ($uid !== false) {
     } catch (Exception $e){
     }
 
-    if (empty($entries->notes)) {
+    if (empty($entries->notes)){
         return;
     }
 
