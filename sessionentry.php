@@ -67,6 +67,10 @@ if ($uid !== false) {
     } catch (Exception $e){
     }
 
+    if (empty($entries->notes)) {
+        return;
+    }
+
     try { /*TODO Make compound key*/
         $stmt = $conn->prepare("INSERT INTO usersessionnotes (user_id, notes, session_title, session_date) VALUES (:uid, :notes, :title, :date)");
         $stmt->bindParam(':uid', $uid);
