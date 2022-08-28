@@ -4,36 +4,38 @@ include "./utilities/standardizedResponse.php";
 include "./connect.php";
 include "./utilities/getUID.php";
 
-$uid = getUID();
 $email = json_decode(file_get_contents('php://input'));
 
-if ($uid !== false) {
     try {
-        $stmt = $conn->prepare("SELECT email FROM users WHERE user_id = :uid");
-        $stmt->bindParam(":uid", $uid);
+        $stmt = $conn->prepare("SELECT email, id FROM users WHERE email = :email");
+        $stmt->bindParam(":email", $email);
         $stmt->execute();
-        $databaseEmail = $stmt->fetchColumn();
+        $userdata = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
-} else {
-    standardizedResponse("Cannot find any users with that e-mail address.");
-}
 
-if ($email === $databaseEmail){
+    if (empty($userdata)){
+        standardizedResponse("Cannot find any users with that e-mail address.");
+        return;
+    }
+
+if ($email === $userdata['email']){
     $randomString = generateRandomString();
-    $hash = password_hash($randomString);
+    $hash = password_hash($randomString, PASSWORD_DEFAULT);
     try {
         $stmt = $conn->prepare("INSERT INTO passwordresetkeys (user_id, hash) VALUES (:uid, :hash)");
-        $stmt->bindParam(":uid", $uid);
+        $stmt->bindParam(":uid", $userdata['id']);
         $stmt->bindParam(":hash", $hash);
         $stmt->execute();
         $databaseEmail = $stmt->fetchColumn();
+        standardizedResponse("Please check your e-mail for a link to reset your password.");
     } catch (Exception $e) {
         standardizedResponse($e->getMessage());
     }
 } else {
     standardizedResponse("Cannot find user; try logging in again.");
+    return;
 }
 
 function generateRandomString($length = 20) {
