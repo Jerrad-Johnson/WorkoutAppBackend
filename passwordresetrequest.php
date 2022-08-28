@@ -3,12 +3,14 @@ session_start();
 include "./utilities/standardizedResponse.php";
 include "./connect.php";
 include "./utilities/getUID.php";
+include "sendgridKey.php";
+require 'vendor/autoload.php';
 
-$email = json_decode(file_get_contents('php://input'));
+$emailAddress = json_decode(file_get_contents('php://input'));
 
     try {
         $stmt = $conn->prepare("SELECT email, id FROM users WHERE email = :email");
-        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":email", $emailAddress);
         $stmt->execute();
         $userdata = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
@@ -20,7 +22,7 @@ $email = json_decode(file_get_contents('php://input'));
         return;
     }
 
-if ($email === $userdata['email']){
+if ($emailAddress === $userdata['email']){
     $randomString = generateRandomString();
     $hash = password_hash($randomString, PASSWORD_DEFAULT);
     try {
@@ -46,6 +48,22 @@ function generateRandomString($length = 20) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+$email = new \SendGrid\Mail\Mail();
+$email->setFrom("j_johnson21@mail.fhsu.edu", "Jerrad Johnson");
+$email->setSubject("Password Reset Link.");
+$email->addTo($emailAddress, "Workout App User");
+$email->addContent("text/plain", "$hash");
+$email->addContent(
+    "text/html", "$hash"
+);
+$sendgrid = new \SendGrid($sendgridKey);
+
+try {
+    $sendgrid->send($email);
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
 }
 
 ?>
