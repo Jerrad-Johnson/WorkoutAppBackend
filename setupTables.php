@@ -100,7 +100,7 @@ try {
 
 try{
     $sql = "ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise)";
-    $conn->($sql);
+    $conn->exec($sql);
     echo "<br /> Compound key unique_exercise_user_pair added.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
@@ -108,7 +108,7 @@ try{
 
 try{
     $sql = "ALTER TABLE user_session_notes ADD INDEX unique_session_notes (user_id, session_title, session_date)";
-    $conn->($sql);
+    $conn->exec($sql);
     echo "<br /> Compound key unique_session_notes added.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
@@ -116,7 +116,7 @@ try{
 
 try{
     $sql = "ALTER TABLE sessions ADD INDEX unique_sessions (user_id, session_title, session_date)";
-    $conn->($sql);
+    $conn->exec($sql);
     echo "<br /> Compound key unique_sessions added.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
@@ -124,7 +124,7 @@ try{
 
 try{
     $sql = "ALTER TABLE years_of_entries ADD INDEX unique_years (user_id, year)";
-    $conn->($sql);
+    $conn->exec($sql);
     echo "<br /> Compound key unique_years added.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
