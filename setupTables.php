@@ -74,14 +74,14 @@ try {
 }
 
 try {
-    $sql = "CREATE TABLE passwordresetkeys(
+    $sql = "CREATE TABLE password_reset_keys(
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE,
     user_id INT(8) UNSIGNED NOT NULL,
-    hash VARCHAR(255) NOT NULL,
+    reset_key VARCHAR(20) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
    )";
     $conn->exec($sql);
-    echo "<br /> Table passwordresetkeys created successfully.<br />";
+    echo "<br /> Table password_reset_keys created successfully.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }

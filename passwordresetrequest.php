@@ -25,7 +25,7 @@ $emailAddress = json_decode(file_get_contents('php://input'));
 if ($emailAddress === $userdata['email']){
     $randomString = generateRandomString();
     try {
-        $stmt = $conn->prepare("INSERT INTO passwordresetkeys (user_id, hash) VALUES (:uid, :hash)");
+        $stmt = $conn->prepare("INSERT INTO password_reset_keys (user_id, reset_key) VALUES (:uid, :hash)");
         $stmt->bindParam(":uid", $userdata['id']);
         $stmt->bindParam(":hash", $randomString);
         $stmt->execute();
