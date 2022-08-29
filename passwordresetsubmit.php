@@ -19,7 +19,7 @@ try {
 }
 
 if (empty($uid)) {
-    standardizedResponse("Cannot find any users with that e-mail address.");
+    standardizedResponse("Incorrect e-mail or reset key."); // It's actually the e-mail. This is to reduce the risk of account theft/stalking.
     return;
 }
 
@@ -70,3 +70,5 @@ try {
 }
 
 standardizedResponse("Password Changed.");
+
+//TODO Send email
