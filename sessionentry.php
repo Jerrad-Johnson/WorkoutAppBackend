@@ -47,7 +47,7 @@ if ($uid !== false) {
         }
     }
 
-    try { /*TODO Make compound key*/
+    try {
         for ($i = 0; $i < count($entries->exercises); $i++){
             $stmt = $conn->prepare("INSERT INTO exercises (user_id, exercise) VALUES (:uid, :exercise)");
             $stmt->bindParam(':uid', $uid);

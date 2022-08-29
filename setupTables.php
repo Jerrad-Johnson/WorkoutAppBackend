@@ -45,7 +45,7 @@ try {
 }
 
 try {
-   $sql = "CREATE TABLE usersessiondefaults(
+   $sql = "CREATE TABLE user_session_defaults(
    id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
    user_id INT(8) UNSIGNED NOT NULL UNIQUE,
    reps INT(2) UNSIGNED NOT NULL,
@@ -54,13 +54,13 @@ try {
    weight INT(8) UNSIGNED NOT NULL
    )";
    $conn->exec($sql);
-    echo "<br /> Table usersessiondefaults created successfully.<br />";
+    echo "<br /> Table user_session_defaults created successfully.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
 
 try {
-    $sql = "CREATE TABLE usersessionnotes(
+    $sql = "CREATE TABLE user_session_notes(
     id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY UNIQUE,
     user_id INT(8) UNSIGNED NOT NULL,
     notes VARCHAR(5000) NOT NULL,
@@ -68,7 +68,7 @@ try {
     session_title VARCHAR(40) NOT NULL
    )";
     $conn->exec($sql);
-    echo "<br /> Table usersessionnotes created successfully.<br />";
+    echo "<br /> Table user_session_notes created successfully.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }
@@ -82,6 +82,30 @@ try {
    )";
     $conn->exec($sql);
     echo "<br /> Table password_reset_keys created successfully.<br />";
+} catch (Exception $e){
+    echo "<br />" . $sql . "<br>" . $e->getMessage();
+}
+
+try{
+    $sql = "ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise)";
+    $conn->($sql);
+    echo "<br /> Compound key unique_exercise_user_pair added.<br />";
+} catch (Exception $e){
+    echo "<br />" . $sql . "<br>" . $e->getMessage();
+}
+
+try{
+    $sql = "ALTER TABLE user_session_notes ADD INDEX unique_session_notes (user_id, exercise, session_date)";
+    $conn->($sql);
+    echo "<br /> Compound key unique_session_notes added.<br />";
+} catch (Exception $e){
+    echo "<br />" . $sql . "<br>" . $e->getMessage();
+}
+
+try{
+    $sql = "ALTER TABLE sessions ADD INDEX unique_sessions (user_id, session_title, session_date)";
+    $conn->($sql);
+    echo "<br /> Compound key unique_sessions added.<br />";
 } catch (Exception $e){
     echo "<br />" . $sql . "<br>" . $e->getMessage();
 }

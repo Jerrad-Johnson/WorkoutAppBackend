@@ -71,4 +71,14 @@ try {
 
 standardizedResponse("Password Changed.");
 
+$email = new \SendGrid\Mail\Mail();
+$email->setFrom("j_johnson21@mail.fhsu.edu", "Jerrad Johnson");
+$email->setSubject("Password Reset Successful.");
+$email->addTo($emailAddress, "Workout App User");
+$email->addContent("text/plain", "Your password has been reset.");
+$email->addContent(
+    "text/html", "Your password has been reset."
+);
+$sendgrid = new \SendGrid($sendgridKey);
+
 //TODO Send email
