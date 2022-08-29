@@ -9,63 +9,53 @@ require 'vendor/autoload.php';
 
 $userData = json_decode(file_get_contents('php://input'));
 
-
-/*
 try {
-    $stmt = $conn->prepare("SELECT email, id FROM users WHERE email = :email");
-    $stmt->bindParam(":email", $emailAddress);
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
+    $stmt->bindParam(":email", $userData->email);
     $stmt->execute();
-    $userdata = $stmt->fetch(PDO::FETCH_ASSOC);
+    $uid = $stmt->fetchColumn();
 } catch (Exception $e) {
     standardizedResponse($e->getMessage());
 }
 
-if (empty($userdata)) {
+if (empty($uid)) {
     standardizedResponse("Cannot find any users with that e-mail address.");
     return;
 }
 
-if ($emailAddress === $userdata['email']) {
-    $randomString = generateRandomString();
-    try {
-        $stmt = $conn->prepare("INSERT INTO password_reset_keys (user_id, reset_key) VALUES (:uid, :hash)");
-        $stmt->bindParam(":uid", $userdata['id']);
-        $stmt->bindParam(":hash", $randomString);
-        $stmt->execute();
-        $databaseEmail = $stmt->fetchColumn();
-        standardizedResponse("Please check your e-mail for a link to reset your password.");
-    } catch (Exception $e) {
-        standardizedResponse($e->getMessage());
-    }
-} else {
-    standardizedResponse("Cannot find user; try logging in again.");
+try {
+    $stmt = $conn->prepare("SELECT reset_key, UNIX_TIMESTAMP(creation_date) FROM password_reset_keys WHERE user_id = :uid AND reset_key = :resetKey");
+    $stmt->bindParam(":uid", $uid);
+    $stmt->bindParam(":resetKey", $userData->resetKey);
+    $stmt->execute();
+    $matchingEntry = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    standardizedResponse($e->getMessage());
+}
+
+
+if (empty($matchingEntry)) {
+    standardizedResponse("Cannot find an existing password reset request. Please do that first.");
     return;
 }
 
-function generateRandomString($length = 20)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
+$databaseTime = $matchingEntry["UNIX_TIMESTAMP(creation_date)"];
+$currentTime = time();
+$timeCompared = ($currentTime/3600) - ($databaseTime/3600);
+
+if ($timeCompared > 0.5){
+    standardizedResponse("Key expired, please send a new password reset request.");
+    return;
 }
 
-$email = new \SendGrid\Mail\Mail();
-$email->setFrom("j_johnson21@mail.fhsu.edu", "Jerrad Johnson");
-$email->setSubject("Password Reset Link.");
-$email->addTo($emailAddress, "Workout App User");
-$email->addContent("text/plain", "Please visit https://workout.jerradjohnson.com/ResetCheck?resetKey=$randomString to reset your password. This link is good for only 30 minutes.");
-$email->addContent(
-    "text/html", "<a href=\"https://workout.jerradjohnson.com/ResetCheck?resetKey=$randomString\">Reset Password</a>. This link is good for only 30 minutes."
-);
-$sendgrid = new \SendGrid($sendgridKey);
+$hash = password_hash($userData->newPassword, PASSWORD_DEFAULT);
 
 try {
-    $sendgrid->send($email);
+    $stmt = $conn->prepare("UPDATE users SET password = :hash WHERE id = :uid");
+    $stmt->bindParam(":uid", $uid);
+    $stmt->bindParam(":hash", $hash);
+    $stmt->execute();
+    standardizedResponse("Password Changed.");
 } catch (Exception $e) {
-    echo 'Caught exception: ' . $e->getMessage() . "\n";
+    standardizedResponse($e->getMessage());
 }
-*/
