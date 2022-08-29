@@ -10,7 +10,7 @@ $uid = getUID();
 if ($uid !== false){
     try {
         $stmt = $conn->prepare("
-        INSERT INTO usersessiondefaults(user_id, reps, sets, exercises, weight) 
+        INSERT INTO user_session_defaults(user_id, reps, sets, exercises, weight) 
         VALUES(:uid, :reps, :sets, :exercises, :weight) 
         ON DUPLICATE KEY UPDATE reps = :reps, sets = :sets, exercises = :exercises, weight = :weight");
         $stmt->bindParam(':uid', $uid);

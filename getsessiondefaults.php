@@ -9,7 +9,7 @@ $uid = getUID();
 
 if ($uid !== false) {
     try {
-        $stmt = $conn->prepare("SELECT exercises, reps, sets, weight FROM usersessiondefaults WHERE user_id = :uid");
+        $stmt = $conn->prepare("SELECT exercises, reps, sets, weight FROM user_session_defaults WHERE user_id = :uid");
         $stmt->bindParam(":uid", $uid);
         $stmt->execute();
         standardizedResponse("Success", $stmt->fetch(PDO::FETCH_ASSOC));

@@ -10,7 +10,7 @@ $id = json_decode(file_get_contents('php://input'));
 
 if ($uid !== false) {
     try {
-        $stmt = $conn->prepare("SELECT notes FROM usersessionnotes WHERE user_id = :uid AND id = :id");
+        $stmt = $conn->prepare("SELECT notes FROM user_session_notes WHERE user_id = :uid AND id = :id");
         $stmt->bindParam(":uid", $uid);
         $stmt->bindParam(":id", $id);
         $stmt->execute();

@@ -72,7 +72,7 @@ if ($uid !== false) {
     }
 
     try { /*TODO Make compound key*/
-        $stmt = $conn->prepare("INSERT INTO usersessionnotes (user_id, notes, session_title, session_date) VALUES (:uid, :notes, :title, :date)");
+        $stmt = $conn->prepare("INSERT INTO user_session_notes (user_id, notes, session_title, session_date) VALUES (:uid, :notes, :title, :date)");
         $stmt->bindParam(':uid', $uid);
         $stmt->bindParam(':notes', $entries->notes);
         $stmt->bindParam(':title', $entries->title);
