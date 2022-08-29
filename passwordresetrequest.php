@@ -54,9 +54,9 @@ $email = new \SendGrid\Mail\Mail();
 $email->setFrom("j_johnson21@mail.fhsu.edu", "Jerrad Johnson");
 $email->setSubject("Password Reset Link.");
 $email->addTo($emailAddress, "Workout App User");
-$email->addContent("text/plain", "$hash");
+$email->addContent("text/plain", "Please visit https://workout.jerradjohnson.com/ResetCheck/$hash to reset your password. This link is good for only 30 minutes.");
 $email->addContent(
-    "text/html", "$hash"
+    "text/html", "<a href=\"https://workout.jerradjohnson.com/ResetCheck/$hash\">Reset Password</a>. This link is good for only 30 minutes."
 );
 $sendgrid = new \SendGrid($sendgridKey);
 
