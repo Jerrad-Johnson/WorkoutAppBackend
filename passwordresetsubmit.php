@@ -55,7 +55,18 @@ try {
     $stmt->bindParam(":uid", $uid);
     $stmt->bindParam(":hash", $hash);
     $stmt->execute();
-    standardizedResponse("Password Changed.");
 } catch (Exception $e) {
     standardizedResponse($e->getMessage());
+    return;
 }
+
+try {
+    $stmt = $conn->prepare("DELETE FROM password_reset_keys WHERE user_id = :uid");
+    $stmt->bindParam(":uid", $uid);
+    $stmt->execute();
+} catch (Exception $e) {
+    standardizedResponse($e->getMessage());
+    return;
+}
+
+standardizedResponse("Password Changed.");
