@@ -1,3 +1,13 @@
+# Strength Training Tracker
+
+## About
+
+This is meant to make tracking your workout sessions easier. You can quickly add exercises to your workout, sets to your exercises, and reps and weight to your sets.
+
+You can also load a previous session as a template, and perhaps for example the only thing you need to change is the number of reps performed; all else may be the same.
+
+The app also graphs your progress with each exercise, showing your calculated 1RM across time.
+
 # Front-end install / deployment
 
 - Get [repository](https://github.com/Jerrad-Johnson/WorkoutAppRedo)
