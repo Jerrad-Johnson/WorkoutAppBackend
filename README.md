@@ -10,10 +10,7 @@ The app also graphs your progress with each exercise, showing your calculated 1R
 
 # Front-end install / deployment
 
-- Get [repository](https://github.com/Jerrad-Johnson/WorkoutAppRedo)
-- Run `npm install` in project folder
-- Update `queries.tsx` variable `baseURL` to reference your php directory
-- Use `npm run build` to create a deployable version of the frontend app, then navigate to the project's folder, then to the `build` subfolder. Upload the `build` folder's contents to a webserver, and set URL rewrites.
+- Instructions in [repository](https://github.com/Jerrad-Johnson/WorkoutAppRedo)
 
 # Back-end install / deployment
 
@@ -50,3 +47,4 @@ $sendgridKey = "Your key goes here";
 ## Known backend issues
 
 - Need to update e-mail address so that messages come from my domain, rather than (presently) from my school e-mail address.
+- Compound keys are not working.
