@@ -99,7 +99,7 @@ try {
 }
 
 try{
-    $sql = "ALTER TABLE exercises ADD INDEX unique_exercise_user_pair (user_id, exercise)";
+    $sql = "ALTER TABLE exercises ADD UNIQUE INDEX unique_exercise_user_pair (user_id, exercise)";
     $conn->exec($sql);
     echo "<br /> Compound key unique_exercise_user_pair added.<br />";
 } catch (Exception $e){
@@ -107,7 +107,7 @@ try{
 }
 
 try{
-    $sql = "ALTER TABLE user_session_notes ADD INDEX unique_session_notes (user_id, session_title, session_date)";
+    $sql = "ALTER TABLE user_session_notes ADD UNIQUE INDEX unique_session_notes (user_id, session_title, session_date)";
     $conn->exec($sql);
     echo "<br /> Compound key unique_session_notes added.<br />";
 } catch (Exception $e){
@@ -115,7 +115,7 @@ try{
 }
 
 try{
-    $sql = "ALTER TABLE sessions ADD INDEX unique_sessions (user_id, session_title, session_date)";
+    $sql = "ALTER TABLE sessions ADD UNIQUE INDEX unique_sessions (user_id, session_title, session_date, exercise)";
     $conn->exec($sql);
     echo "<br /> Compound key unique_sessions added.<br />";
 } catch (Exception $e){
@@ -123,7 +123,7 @@ try{
 }
 
 try{
-    $sql = "ALTER TABLE years_of_entries ADD INDEX unique_years (user_id, year)";
+    $sql = "ALTER TABLE years_of_entries ADD UNIQUE INDEX unique_years (user_id, year)";
     $conn->exec($sql);
     echo "<br /> Compound key unique_years added.<br />";
 } catch (Exception $e){

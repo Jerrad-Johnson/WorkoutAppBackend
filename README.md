@@ -47,4 +47,3 @@ $sendgridKey = "Your key goes here";
 ## Known backend issues
 
 - Need to update e-mail address so that messages come from my domain, rather than (presently) from my school e-mail address.
-- Compound keys are not working.
