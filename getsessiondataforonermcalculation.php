@@ -7,6 +7,7 @@ include "./utilities/replyAfterQueries.php";
 
 $uid = getUID();
 $exercise = json_decode(file_get_contents('php://input'));
+//print_r($exercise);
 
 //TODO Set limit for mobile-readability.
 
