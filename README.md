@@ -16,6 +16,14 @@ The app also graphs your progress with each exercise, showing your calculated 1R
 
 - Get [repository](https://github.com/Jerrad-Johnson/WorkoutAppBackend)
 - Create a database
+
+Example:
+```
+CREATE DATABASE workoutapp;
+CREATE USER 'workoutappadmin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'somepassword';
+GRANT ALL PRIVILEGES ON workoutapp.* TO 'workoutappadmin'@'localhost';
+```
+
 - Create `connect.php` and `sendgridKey.php` in parent php folder. Sample formats:
 ### connect.php
 ```
