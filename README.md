@@ -20,8 +20,8 @@ The app also graphs your progress with each exercise, showing your calculated 1R
 Example:
 ```
 CREATE DATABASE workoutapp;
-CREATE USER 'workoutappadmin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'somepassword';
-GRANT ALL PRIVILEGES ON workoutapp.* TO 'workoutappadmin'@'localhost';
+CREATE USER 'workoutappadmin'@'172.17.0.1' IDENTIFIED WITH mysql_native_password BY 'somepassword';
+GRANT ALL PRIVILEGES ON workoutapp.* TO 'workoutappadmin'@'172.17.0.1';
 ```
 
 - Create `connect.php` and `sendgridKey.php` in parent php folder. Sample formats:

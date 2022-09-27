@@ -1,6 +1,9 @@
 <?php
 
+include "./utilities/standardizedResponse.php"; // May need to add this to connect.php, and remove from here, when creating tables.
 include "./connect.php";
+
+
 
 try {
 $sql = "CREATE TABLE users(
