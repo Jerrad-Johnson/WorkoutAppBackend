@@ -10,9 +10,6 @@ $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();
 $year = substr($entries->date, 0, 4);
 
-print_r($entries->exercises);
-print_r($uid);
-
 if ($uid !== false) {
     try {
         $stmt = $conn->prepare("SELECT id FROM sessions WHERE session_date = :date AND user_id = :uid AND session_title = :title");
