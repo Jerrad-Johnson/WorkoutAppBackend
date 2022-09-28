@@ -10,6 +10,9 @@ $entries = json_decode(file_get_contents('php://input'));
 $uid = getUID();
 $year = substr($entries->date, 0, 4);
 
+print_r($entries->exercises);
+print_r($uid);
+
 if ($uid !== false) {
     try {
         $stmt = $conn->prepare("SELECT id FROM sessions WHERE session_date = :date AND user_id = :uid AND session_title = :title");
@@ -49,7 +52,7 @@ if ($uid !== false) {
 
     try {
         for ($i = 0; $i < count($entries->exercises); $i++){
-            $stmt = $conn->prepare("INSERT INTO exercises (user_id, exercise) VALUES (:uid, :exercise)");
+            $stmt = $conn->prepare("INSERT IGNORE INTO exercises (user_id, exercise) VALUES (:uid, :exercise)");
             $stmt->bindParam(':uid', $uid);
             $stmt->bindParam(':exercise', $entries->exercises[$i]);
             $stmt->execute();
@@ -59,7 +62,7 @@ if ($uid !== false) {
 
     try { /*TODO Is this still used?*/
         for ($i = 0; $i < count($entries->exercises); $i++){
-            $stmt = $conn->prepare("INSERT INTO yearsofentries (user_id, year) VALUES (:uid, :year)");
+            $stmt = $conn->prepare("INSERT IGNORE INTO yearsofentries (user_id, year) VALUES (:uid, :year)");
             $stmt->bindParam(':uid', $uid);
             $stmt->bindParam(':year', $year);
             $stmt->execute();
